@@ -115,7 +115,17 @@
             <div class="field-half"><label>Experience (Yrs)</label><input type="number" name="experience" required min="0"></div>
             <div class="field-half"><label>Expected Salary (₹)</label><input type="number" name="salary" required min="0"></div>
 
-            <div class="box-highlight urgent"><label class="option-item"><input type="checkbox" name="immediateJoin" value="Yes" required> 🚀 <strong>Confirm Immediate Joining</strong></label></div>
+            div class="field-full">
+    <label>Availability / Notice Period</label>
+    <select name="immediateJoin" required>
+        <option value="">-- When can you start? --</option>
+        <option value="Immediate">🚀 Immediate (Within 3 days)</option>
+        <option value="1 Week">1 Week Notice</option>
+        <option value="15 Days">15 Days Notice</option>
+        <option value="1 Month">1 Month Notice</option>
+        <option value="Currently Working">Negotiable (Currently Working)</option>
+    </select>
+</div>
 
             <div class="field-full"><label>Resume (PDF Only)</label><input type="file" id="cvFile" accept=".pdf" required></div>
 
