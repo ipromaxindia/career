@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iPromax Careers | Recruitment Portal</title>
+    <title>iPromax Careers | Join Our Team</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,43 +12,72 @@
             --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --glass-bg: rgba(255, 255, 255, 0.98);
         }
+
         * { box-sizing: border-box; outline: none; }
+        
         body {
             font-family: 'Inter', sans-serif; background: var(--bg-gradient);
             background-attachment: fixed; display: flex; justify-content: center;
             align-items: flex-start; min-height: 100vh; margin: 0; padding: 40px 20px;
         }
+
         .card {
             background: var(--glass-bg); border-radius: 24px; padding: 40px;
             width: 100%; max-width: 700px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
+
         .logo-box { text-align: center; margin-bottom: 30px; }
-        .logo-box img { max-width: 180px; }
+        .logo-box img { max-width: 180px; height: auto; }
+
         h2 { text-align: center; font-weight: 800; font-size: 26px; margin: 0 0 30px 0; background: linear-gradient(to right, #4f46e5, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
         .form-grid { display: flex; flex-wrap: wrap; gap: 20px; }
         .field-half { width: calc(50% - 10px); }
         .field-full { width: 100%; }
+
         label { font-weight: 700; font-size: 13px; color: var(--dark); margin-bottom: 8px; display: block; }
         label::after { content: " *"; color: var(--vacancy-tag); }
-        input, select { width: 100%; padding: 14px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 14px; transition: 0.3s; }
+
+        input, select { width: 100%; padding: 14px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 14px; transition: 0.3s; font-family: inherit; }
+        input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(0, 98, 255, 0.1); }
+
         #role-desc-container { display: none; background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 12px; margin-top: 5px; }
         .vacancy-badge { display: inline-block; background: var(--vacancy-tag); color: white; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; margin-bottom: 12px; }
+
         #skills-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: white; border: 2px solid var(--dark); padding: 20px; border-radius: 0 0 12px 12px; }
-        .option-item { display: flex; align-items: center; gap: 10px; font-size: 13px; cursor: pointer; }
-        .option-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary); margin: 0; }
+        .option-item { display: flex; align-items: center; gap: 10px; font-size: 13px; cursor: pointer; color: var(--dark); }
+        .option-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary); margin: 0; cursor: pointer; }
+
         .box-highlight { padding: 16px; border-radius: 12px; width: 100%; display: flex; align-items: center; }
         .urgent { background: #fffbeb; border: 2px dashed #fde68a; color: #92400e; }
         .consent { background: #f1f5f9; border: 1px solid #e2e8f0; color: #64748b; font-size: 12px; }
-        button { width: 100%; padding: 18px; background: linear-gradient(90deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: 14px; font-size: 18px; font-weight: 800; cursor: pointer; margin-top: 20px; transition: 0.3s; }
-        button:disabled { background: #94a3b8; cursor: not-allowed; }
-        #status { text-align: center; margin-top: 20px; font-weight: 700; display: none; padding: 15px; border-radius: 12px; }
+
+        button#submitBtn { width: 100%; padding: 18px; background: linear-gradient(90deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: 14px; font-size: 18px; font-weight: 800; cursor: pointer; margin-top: 20px; transition: 0.3s; box-shadow: 0 10px 20px rgba(0, 98, 255, 0.2); }
+        button#submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        /* Full Screen Overlay Styles */
+        #successOverlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(30, 41, 59, 0.95); z-index: 9999;
+            flex-direction: column; justify-content: center; align-items: center;
+            color: white; text-align: center; backdrop-filter: blur(8px);
+        }
+        .overlay-card { background: white; padding: 40px; border-radius: 24px; max-width: 90%; width: 420px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5); }
+        
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
         @media (max-width: 600px) { .field-half { width: 100%; } #skills-container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
+
 <div class="card">
     <div class="logo-box"><img src="logo.png" onerror="this.src='https://via.placeholder.com/180x60?text=iPromax+Group'"></div>
     <h2>Career Application</h2>
+    
     <form id="vibrantForm">
         <div class="form-grid">
             <div class="field-full">
@@ -64,41 +93,56 @@
                     <option value="Front Desk Executive">Front Desk Executive</option>
                 </select>
             </div>
+
             <div class="field-full" id="role-desc-container">
                 <div class="vacancy-badge" id="vacancy-count"></div>
-                <div id="role-title-text" style="font-weight: 800; font-size: 15px; margin-bottom: 4px;"></div>
+                <div id="role-title-text" style="font-weight: 800; font-size: 15px; color: var(--dark);"></div>
                 <div id="role-desc-text" style="color: #64748b; font-size: 13px; line-height: 1.6;"></div>
             </div>
+
             <div class="field-full">
                 <label>Core Skills</label>
                 <div style="background: var(--dark); color: white; padding: 12px 16px; border-radius: 12px 12px 0 0; font-size: 12px; font-weight: 700;">Select Expertise:</div>
                 <div id="skills-container"><p style="color:#94a3b8; font-size:12px; grid-column:span 2; text-align:center;">Select position first...</p></div>
             </div>
-            <div class="field-full"><label>Full Name</label><input type="text" name="name" required></div>
-            <div class="field-half"><label>WhatsApp Number</label><input type="tel" name="phone" required></div>
-            <div class="field-half"><label>Email Address</label><input type="email" name="email" required></div>
-            <div class="field-full"><label>Branch Preference</label><select name="officeLocation" required><option value="">-- Select --</option><option value="Kochi">Kochi</option><option value="Trivandrum">Trivandrum</option><option value="Any">Any</option></select></div>
-            <div class="field-half"><label>Experience (Yrs)</label><input type="number" name="experience" required></div>
-            <div class="field-half"><label>Salary Expectation (₹)</label><input type="number" name="salary" required></div>
-            <div class="box-highlight urgent"><label class="option-item"><input type="checkbox" name="immediateJoin" value="Yes" required> 🚀 <strong>Immediate Joining Confirmation</strong></label></div>
+
+            <div class="field-full"><label>Full Name</label><input type="text" name="name" required placeholder="Your full name"></div>
+            <div class="field-half"><label>WhatsApp Number</label><input type="tel" name="phone" required placeholder="91XXXXXXXX"></div>
+            <div class="field-half"><label>Email Address</label><input type="email" name="email" required placeholder="email@example.com"></div>
+            
+            <div class="field-full"><label>Branch Preference</label><select name="officeLocation" required><option value="">-- Select --</option><option value="Kochi">Kochi</option><option value="Trivandrum">Trivandrum</option><option value="Any">Any Location</option></select></div>
+
+            <div class="field-half"><label>Experience (Yrs)</label><input type="number" name="experience" required min="0"></div>
+            <div class="field-half"><label>Expected Salary (₹)</label><input type="number" name="salary" required min="0"></div>
+
+            <div class="box-highlight urgent"><label class="option-item"><input type="checkbox" name="immediateJoin" value="Yes" required> 🚀 <strong>Confirm Immediate Joining</strong></label></div>
+
             <div class="field-full"><label>Resume (PDF Only)</label><input type="file" id="cvFile" accept=".pdf" required></div>
-            <div class="box-highlight consent"><label class="option-item"><input type="checkbox" id="dataConsent" required><span>I consent to data processing for recruitment.</span></label></div>
+
+            <div class="box-highlight consent"><label class="option-item"><input type="checkbox" id="dataConsent" required><span>I consent to iPromax processing my personal data and resume.</span></label></div>
         </div>
+
         <button type="submit" id="submitBtn">Submit Application</button>
-        <div id="status"></div>
     </form>
 </div>
+
+<div id="successOverlay">
+    <div class="overlay-card" id="overlayContent">
+        </div>
+</div>
+
 <script>
+    // ⚠️ UPDATE YOUR URL HERE
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwn6aXZMKuTBxnLkHl2Cy5wgHbKS4jOu8YLtxfFw2VsYT9IBs3VSaG710qzpKMOZ-Ti/exec'; 
 
     const skillSets = {
-        "Senior Technician": { skills: ["Micro-Soldering", "FaceID Repair", "CPU Reballing"], desc: "High-end logic board diagnostics.", vacancies: 3 },
-        "Junior Technician": { skills: ["Screen Change", "Battery", "Charging Port"], desc: "Standard hardware servicing.", vacancies: 4 },
-        "Laptop Technician": { skills: ["MacBook", "Chip Level Repair", "OS Installation"], desc: "Laptop hardware specialist.", vacancies: 2 },
-        "Service Coordinator": { skills: ["CRM Management", "Client Support", "Inventory"], desc: "Workflow management.", vacancies: 1 },
-        "Accountant": { skills: ["Tally / GST", "Billing", "Auditing"], desc: "Branch accounts management.", vacancies: 1 },
-        "Telecaller": { skills: ["Malayalam", "English", "Outbound"], desc: "Customer service follow-ups.", vacancies: 2 },
-        "Front Desk Executive": { skills: ["Admin", "Greeting", "Billing Support"], desc: "Reception and billing support.", vacancies: 2 }
+        "Senior Technician": { skills: ["Micro-Soldering", "FaceID Repair", "CPU Reballing"], desc: "High-end logic board repairs and chip-level diagnostics.", vacancies: 3 },
+        "Junior Technician": { skills: ["Screen Change", "Battery", "Charging Port"], desc: "Hardware part replacement and general servicing.", vacancies: 4 },
+        "Laptop Technician": { skills: ["MacBook", "Chip Level Repair", "OS Installation"], desc: "Premium laptop hardware and software specialist.", vacancies: 2 },
+        "Service Coordinator": { skills: ["CRM Management", "Customer Care", "Inventory"], desc: "Handling workflow and client communications.", vacancies: 1 },
+        "Accountant": { skills: ["Tally", "GST Compliance", "Invoicing"], desc: "Branch level financial management.", vacancies: 1 },
+        "Telecaller": { skills: ["Malayalam", "English", "Sales Support"], desc: "Handling customer follow-ups and inquiries.", vacancies: 2 },
+        "Front Desk Executive": { skills: ["Admin", "Greeting", "Billing"], desc: "Showroom management and intake support.", vacancies: 2 }
     };
 
     function updateFormDisplay() {
@@ -108,38 +152,70 @@
         cont.innerHTML = '';
         if (skillSets[pos]) {
             descB.style.display = 'block';
-            document.getElementById('vacancy-count').innerText = skillSets[pos].vacancies + " Open Vacancies";
+            document.getElementById('vacancy-count').innerText = skillSets[pos].vacancies + " Vacancies Left";
             document.getElementById('role-title-text').innerText = pos;
             document.getElementById('role-desc-text').innerText = skillSets[pos].desc;
-            skillSets[pos].skills.forEach(s => { cont.innerHTML += `<label class="option-item"><input type="checkbox" name="skill" value="${s}"> ${s}</label>`; });
-        } else { descB.style.display = 'none'; cont.innerHTML = '<p style="text-align:center; grid-column:span 2;">Select position first...</p>'; }
+            skillSets[pos].skills.forEach(s => {
+                cont.innerHTML += `<label class="option-item"><input type="checkbox" name="skill" value="${s}"> ${s}</label>`;
+            });
+        } else {
+            descB.style.display = 'none';
+            cont.innerHTML = '<p style="color:#94a3b8; font-size:12px; grid-column:span 2; text-align:center;">Select position first...</p>';
+        }
     }
 
     document.getElementById('vibrantForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const skills = Array.from(document.querySelectorAll('input[name="skill"]:checked')).map(c => c.value).join(', ');
-        if (!skills) { alert("Please select skills."); return; }
+        if (!skills) { alert("Please select your core skills."); return; }
         
         const btn = document.getElementById('submitBtn');
-        const status = document.getElementById('status');
-        btn.disabled = true; btn.innerText = "Transmitting...";
-        status.style.display = "block"; status.innerText = "Connecting to iPromax Recruitment Hub...";
+        const overlay = document.getElementById('successOverlay');
+        const overlayContent = document.getElementById('overlayContent');
+
+        // Initial Loading State
+        btn.disabled = true;
+        btn.innerText = "Processing...";
+        overlay.style.display = 'flex';
+        overlayContent.innerHTML = `
+            <div class="spinner"></div>
+            <h2 style="color: #1e293b; margin-bottom:10px;">Uploading...</h2>
+            <p style="color: #64748b;">Please wait while we secure your application.</p>
+        `;
 
         const file = document.getElementById('cvFile').files[0];
         const reader = new FileReader();
+        
         reader.onload = function() {
             const fileData = { bytes: Array.from(new Uint8Array(reader.result)), mimeType: file.type, fileName: file.name };
             const params = new URLSearchParams(new FormData(document.getElementById('vibrantForm')));
             params.set('specialization', skills);
 
-            fetch(`${SCRIPT_URL}?${params.toString()}`, { method: 'POST', mode: 'no-cors', body: JSON.stringify(fileData) })
-            .then(() => {
-                status.innerText = "✨ Application Successfully Received!";
-                status.style.background = "#dcfce7"; status.style.color = "#166534";
-                document.getElementById('vibrantForm').reset();
-                updateFormDisplay(); btn.disabled = false; btn.innerText = "Submit Application";
+            fetch(`${SCRIPT_URL}?${params.toString()}`, { 
+                method: 'POST', 
+                mode: 'no-cors', 
+                body: JSON.stringify(fileData) 
             })
-            .catch(() => { status.innerText = "Submission Error. Please check your network."; btn.disabled = false; });
+            .then(() => {
+                // Success State
+                overlayContent.style.animation = "popIn 0.5s ease-out";
+                overlayContent.innerHTML = `
+                    <div style="font-size: 60px; margin-bottom: 20px;">✨</div>
+                    <h2 style="color: #1e293b; margin-bottom:10px;">Application Sent!</h2>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.6;">
+                        Thank you for choosing iPromax.<br>
+                        <strong>Check your email ID for further updates.</strong>
+                    </p>
+                    <button onclick="location.reload()" style="margin-top: 25px; padding: 12px 30px; background: #0062ff; color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; width: 100%;">Return to Home</button>
+                `;
+                document.getElementById('vibrantForm').reset();
+            })
+            .catch(() => {
+                overlay.style.display = 'none';
+                alert("Submission failed. Check your internet connection.");
+                btn.disabled = false;
+                btn.innerText = "Submit Application";
+            });
         };
         reader.readAsArrayBuffer(file);
     });
