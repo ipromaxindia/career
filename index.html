@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPromax Careers | Recruitment Portal</title>
+    <style>
+        :root {
+            --brand-primary: #0062ff;
+            --brand-secondary: #00d2ff;
+            --brand-dark: #0f172a;
+            --whatsapp: #25d366;
+            --vacancy-tag: #e11d48; /* Vibrant Rose Red for vacancy badge */
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+            display: flex; justify-content: center; padding: 40px 20px; margin: 0;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 35px; border-radius: 32px;
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.3);
+            width: 100%; max-width: 650px;
+        }
+
+        .logo-box { text-align: center; margin-bottom: 20px; }
+        .logo-box img { max-width: 180px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1)); }
+
+        h2 { text-align: center; font-size: 24px; color: var(--brand-dark); margin-bottom: 25px; font-weight: 800; letter-spacing: -0.5px; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .full { grid-column: span 2; }
+        
+        label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 13px; color: #334155; }
+        input, select { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 14px; transition: 0.3s; }
+        input:focus { border-color: var(--brand-primary); outline: none; }
+        
+        /* VACANCY & ROLE BOX */
+        #role-desc-container {
+            display: none; background: #f8fafc; border: 1px solid #e2e8f0;
+            padding: 15px; border-radius: 12px; margin-bottom: 15px;
+        }
+        .vacancy-badge {
+            display: inline-block; background: var(--vacancy-tag); color: white;
+            padding: 4px 10px; border-radius: 6px; font-size: 10px; font-weight: 800;
+            margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .role-title { font-weight: 800; font-size: 14px; color: var(--brand-dark); margin-bottom: 5px; display: block; }
+        .role-text { font-size: 13px; color: #64748b; line-height: 1.5; }
+
+        /* SKILLS ALIGNMENT */
+        .skills-header { background: var(--brand-dark); color: white; padding: 10px 15px; border-radius: 12px 12px 0 0; font-size: 12px; font-weight: bold; }
+        #skills-container { 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; 
+            background: #fff; border: 2px solid var(--brand-dark); padding: 15px; border-radius: 0 0 12px 12px; margin-bottom: 15px;
+        }
+
+        .option-item { display: flex; align-items: center; gap: 12px; font-size: 13px; cursor: pointer; color: #475569; margin: 0; }
+        .option-item input { width: 18px; height: 18px; accent-color: var(--brand-primary); cursor: pointer; margin: 0; }
+
+        .highlight-box { grid-column: span 2; padding: 15px; border-radius: 12px; margin: 5px 0; display: flex; align-items: center; gap: 12px; }
+        .urgent { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+        .terms { background: #f1f5f9; border: 1px solid #e2e8f0; color: #64748b; font-size: 11px; }
+
+        button { width: 100%; padding: 18px; background: linear-gradient(to right, var(--brand-primary), var(--brand-secondary)); color: white; border: none; border-radius: 14px; font-size: 17px; font-weight: 700; cursor: pointer; margin-top: 15px; box-shadow: 0 10px 20px rgba(0, 98, 255, 0.2); transition: 0.2s; }
+        button:active { transform: scale(0.98); }
+
+        .whatsapp-btn { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: var(--whatsapp); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); z-index: 1000; transition: 0.3s; text-decoration: none; }
+        .whatsapp-btn:hover { transform: scale(1.1); }
+        #status { text-align: center; margin-top: 20px; font-weight: bold; font-size: 14px; display: none; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="logo-box"><img src="logo.png" onerror="this.src='https://via.placeholder.com/180x60?text=iPromax+Group'"></div>
+    <h2>Career Opportunities</h2>
+    
+    <form id="recruitmentForm">
+        <div class="grid">
+            <div class="full">
+                <label>Choose Position</label>
+                <select name="postApplied" id="postApplied" onchange="updateFormDisplay()" required>
+                    <option value="">-- Select Vacancy --</option>
+                    <option value="Senior Technician">Senior Mobile Technician</option>
+                    <option value="Laptop Technician">Laptop Technician</option>
+                    <option value="Service Coordinator">Service Coordinator</option>
+                    <option value="Accountant">Accountant</option>
+                    <option value="Telecaller">Telecaller</option>
+                    <option value="Front Desk Executive">Front Desk Executive</option>
+                </select>
+            </div>
+
+            <div class="full" id="role-desc-container">
+                <div class="vacancy-badge" id="vacancy-count"></div>
+                <span class="role-title" id="role-title-text"></span>
+                <span class="role-text" id="role-desc-text"></span>
+            </div>
+
+            <div class="full">
+                <label>Technical Skills</label>
+                <div class="skills-header">Select Your Expertise:</div>
+                <div id="skills-container">
+                    <p style="color:#94a3b8; font-size:12px; text-align:center; grid-column:span 2;">Select a post to view skills...</p>
+                </div>
+            </div>
+
+            <div class="full"><label>Full Name</label><input type="text" name="name" required placeholder="Enter your full name"></div>
+            <div><label>WhatsApp Number</label><input type="tel" name="phone" required placeholder="9846802008"></div>
+            <div><label>Email Address</label><input type="email" name="email" required placeholder="name@email.com"></div>
+            
+            <div class="full">
+                <label>Preferred Branch</label>
+                <select name="officeLocation" required>
+                    <option value="Kochi">Kochi Branch</option>
+                    <option value="Trivandrum">Trivandrum (Kazhakkoottam) Branch</option>
+                    <option value="Any / Relocate">Ready to Relocate</option>
+                </select>
+            </div>
+
+            <div><label>Experience (Yrs)</label><input type="number" name="experience" required></div>
+            <div><label>Expected Salary (₹)</label><input type="number" name="salary" required></div>
+
+            <div class="highlight-box urgent">
+                <label class="option-item" style="color: inherit;">
+                    <input type="checkbox" name="immediateJoin" value="Yes"> <strong>🚀 Ready for Immediate Joining</strong>
+                </label>
+            </div>
+
+            <div class="full"><label>Upload Resume (PDF Only)</label><input type="file" id="cvFile" accept=".pdf" required></div>
+
+            <div class="highlight-box terms">
+                <label class="option-item" style="color: inherit;">
+                    <input type="checkbox" id="consent" required> I agree to iPromax processing my details for recruitment.
+                </label>
+            </div>
+        </div>
+        <button type="submit" id="submitBtn">Submit Application</button>
+        <div id="status"></div>
+    </form>
+</div>
+
+<a href="https://wa.me/919846802008?text=Hi%20iPromax%20Team,%20I'm%20contacting%20you%20regarding%20the%20job%20vacancies." class="whatsapp-btn" target="_blank">
+    <svg width="32" height="32" fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+    // Paste your Web App URL here
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx9dS2dPzNOD5en0rvRyS6hdldTffZnf0-A2hiqfcw_TBQO7aaa3fb9Mb2ehK-mszqx/exec'; 
+
+    const skillSets = {
+        "Senior Technician": {
+            skills: ["Micro-Soldering", "FaceID Repair", "CPU Reballing", "Display Glass Change", "iPhone Specialist"],
+            desc: "Focuses on high-end chip-level diagnostics and logic board repairs.",
+            vacancies: 3
+        },
+        "Laptop Technician": {
+            skills: ["MacBook Motherboard", "Display Replacement", "OS Expert", "Chip Level Repair"],
+            desc: "Expertise in hardware and software troubleshooting for all major laptop brands.",
+            vacancies: 2
+        },
+        "Service Coordinator": {
+            skills: ["Communication", "Parts Tracking", "CRM Handling", "Job Scheduling"],
+            desc: "Orchestrates the workflow between customers and the technical team.",
+            vacancies: 1
+        },
+        "Accountant": {
+            skills: ["Tally / GST", "Billing", "Expense Auditing", "Daily Cash Logs"],
+            desc: "Manages financial records, invoicing, and statutory compliance for the branch.",
+            vacancies: 1
+        },
+        "Telecaller": {
+            skills: ["Customer Support", "Sales Conversion", "Malayalam/English Fluency"],
+            desc: "Handling service inquiries and ensuring high customer retention via phone.",
+            vacancies: 2
+        },
+        "Front Desk Executive": {
+            skills: ["Greeting", "Billing", "Inventory Entry", "Phone Etiquette"],
+            desc: "Maintains the front showroom and serves as the initial point of contact for clients.",
+            vacancies: 2
+        }
+    };
+
+    function updateFormDisplay() {
+        const position = document.getElementById('postApplied').value;
+        const container = document.getElementById('skills-container');
+        const descBox = document.getElementById('role-desc-container');
+        const descTitle = document.getElementById('role-title-text');
+        const descText = document.getElementById('role-desc-text');
+        const vacancyTag = document.getElementById('vacancy-count');
+        
+        container.innerHTML = '';
+        if (skillSets[position]) {
+            descBox.style.display = 'block';
+            vacancyTag.innerText = skillSets[position].vacancies + " Vacancies Left";
+            descTitle.innerText = position + " - Role Overview:";
+            descText.innerText = skillSets[position].desc;
+            skillSets[position].skills.forEach(skill => {
+                container.innerHTML += `<label class="option-item"><input type="checkbox" name="skill" value="${skill}"> ${skill}</label>`;
+            });
+        } else {
+            descBox.style.display = 'none';
+            container.innerHTML = '<p style="color:#94a3b8; font-size:12px; text-align:center; grid-column:span 2;">Select a post...</p>';
+        }
+    }
+
+    document.getElementById('recruitmentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const skills = Array.from(document.querySelectorAll('input[name="skill"]:checked')).map(c => c.value).join(', ');
+        if (!skills) { alert("Please select your core skills."); return; }
+        
+        const btn = document.getElementById('submitBtn');
+        const status = document.getElementById('status');
+        btn.disabled = true; btn.innerText = "Submitting...";
+        status.style.display = "block"; status.innerText = "Connecting to iPromax Server...";
+
+        const file = document.getElementById('cvFile').files[0];
+        const reader = new FileReader();
+        reader.onload = function() {
+            const fileData = { bytes: Array.from(new Uint8Array(reader.result)), mimeType: file.type, fileName: file.name };
+            const params = new URLSearchParams(new FormData(document.getElementById('recruitmentForm')));
+            params.set('specialization', skills);
+            fetch(`${SCRIPT_URL}?${params.toString()}`, { method: 'POST', body: JSON.stringify(fileData) })
+            .then(() => {
+                status.innerText = "✨ Success! Application received at iPromax.";
+                status.style.color = "green"; document.getElementById('recruitmentForm').reset();
+                updateFormDisplay(); btn.disabled = false; btn.innerText = "Submit Application";
+            }).catch(() => {
+                status.innerText = "Error. Please check your connection."; 
+                status.style.color = "red"; btn.disabled = false;
+            });
+        };
+        reader.readAsArrayBuffer(file);
+    });
+</script>
+</body>
+</html>
