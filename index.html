@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iPromax Careers | Join Our Team</title>
+    <title>iPromax Careers | Digital Recruitment Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -42,27 +42,23 @@
         input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(0, 98, 255, 0.1); }
 
         #role-desc-container { display: none; background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 12px; margin-top: 5px; }
-        .vacancy-badge { display: inline-block; background: var(--vacancy-tag); color: white; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; margin-bottom: 12px; }
+        .vacancy-badge { display: inline-block; background: var(--vacancy-tag); color: white; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; }
+        
+        .jd-btn { background: white; color: var(--primary); padding: 5px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; text-decoration: none; border: 1px solid var(--primary); transition: 0.2s; }
+        .jd-btn:hover { background: var(--primary); color: white; }
 
         #skills-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: white; border: 2px solid var(--dark); padding: 20px; border-radius: 0 0 12px 12px; }
         .option-item { display: flex; align-items: center; gap: 10px; font-size: 13px; cursor: pointer; color: var(--dark); }
-        .option-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary); margin: 0; cursor: pointer; }
+        .option-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary); margin: 0; }
 
         .box-highlight { padding: 16px; border-radius: 12px; width: 100%; display: flex; align-items: center; }
-        .urgent { background: #fffbeb; border: 2px dashed #fde68a; color: #92400e; }
         .consent { background: #f1f5f9; border: 1px solid #e2e8f0; color: #64748b; font-size: 12px; }
 
         button#submitBtn { width: 100%; padding: 18px; background: linear-gradient(90deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: 14px; font-size: 18px; font-weight: 800; cursor: pointer; margin-top: 20px; transition: 0.3s; box-shadow: 0 10px 20px rgba(0, 98, 255, 0.2); }
         button#submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-        /* Full Screen Overlay Styles */
-        #successOverlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(30, 41, 59, 0.95); z-index: 9999;
-            flex-direction: column; justify-content: center; align-items: center;
-            color: white; text-align: center; backdrop-filter: blur(8px);
-        }
-        .overlay-card { background: white; padding: 40px; border-radius: 24px; max-width: 90%; width: 420px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5); }
+        #successOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(30, 41, 59, 0.95); z-index: 9999; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; backdrop-filter: blur(8px); }
+        .overlay-card { background: white; padding: 40px; border-radius: 24px; max-width: 90%; width: 420px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5); animation: popIn 0.4s ease-out; }
         
         .spinner { border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
         
@@ -95,9 +91,12 @@
             </div>
 
             <div class="field-full" id="role-desc-container">
-                <div class="vacancy-badge" id="vacancy-count"></div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <div class="vacancy-badge" id="vacancy-count"></div>
+                    <a id="jd-link-btn" href="#" target="_blank" class="jd-btn">📄 View Full Job Description</a>
+                </div>
                 <div id="role-title-text" style="font-weight: 800; font-size: 15px; color: var(--dark);"></div>
-                <div id="role-desc-text" style="color: #64748b; font-size: 13px; line-height: 1.6;"></div>
+                <div id="role-desc-text" style="color: #64748b; font-size: 13px; line-height: 1.6; margin-top: 4px;"></div>
             </div>
 
             <div class="field-full">
@@ -106,29 +105,30 @@
                 <div id="skills-container"><p style="color:#94a3b8; font-size:12px; grid-column:span 2; text-align:center;">Select position first...</p></div>
             </div>
 
-            <div class="field-full"><label>Full Name</label><input type="text" name="name" required placeholder="Your full name"></div>
+            <div class="field-full"><label>Full Name</label><input type="text" name="name" required placeholder="Enter your full name"></div>
             <div class="field-half"><label>WhatsApp Number</label><input type="tel" name="phone" required placeholder="91XXXXXXXX"></div>
-            <div class="field-half"><label>Email Address</label><input type="email" name="email" required placeholder="email@example.com"></div>
+            <div class="field-half"><label>Email Address</label><input type="email" name="email" required placeholder="name@example.com"></div>
             
             <div class="field-full"><label>Branch Preference</label><select name="officeLocation" required><option value="">-- Select --</option><option value="Kochi">Kochi</option><option value="Trivandrum">Trivandrum</option><option value="Any">Any Location</option></select></div>
 
             <div class="field-half"><label>Experience (Yrs)</label><input type="number" name="experience" required min="0"></div>
             <div class="field-half"><label>Expected Salary (₹)</label><input type="number" name="salary" required min="0"></div>
-<div class="field-full">
-    <label>Availability / Notice Period</label>
-    <select name="immediateJoin" required>
-        <option value="">-- When can you start? --</option>
-        <option value="Immediate">🚀 Immediate (Within 3 days)</option>
-        <option value="1 Week">1 Week Notice</option>
-        <option value="15 Days">15 Days Notice</option>
-        <option value="1 Month">1 Month Notice</option>
-        <option value="Currently Working">Negotiable (Currently Working)</option>
-    </select>
-</div>
+
+            <div class="field-full">
+                <label>Availability / Notice Period</label>
+                <select name="immediateJoin" required>
+                    <option value="">-- When can you start? --</option>
+                    <option value="Immediate">🚀 Immediate (Within 3 days)</option>
+                    <option value="1 Week">1 Week Notice</option>
+                    <option value="15 Days">15 Days Notice</option>
+                    <option value="1 Month">1 Month Notice</option>
+                    <option value="Negotiable">Negotiable (Currently Working)</option>
+                </select>
+            </div>
 
             <div class="field-full"><label>Resume (PDF Only)</label><input type="file" id="cvFile" accept=".pdf" required></div>
 
-            <div class="box-highlight consent"><label class="option-item"><input type="checkbox" id="dataConsent" required><span>I consent to iPromax processing my personal data and resume.</span></label></div>
+            <div class="box-highlight consent"><label class="option-item"><input type="checkbox" id="dataConsent" required><span>I consent to iPromax processing my personal data and resume for recruitment purposes.</span></label></div>
         </div>
 
         <button type="submit" id="submitBtn">Submit Application</button>
@@ -136,8 +136,7 @@
 </div>
 
 <div id="successOverlay">
-    <div class="overlay-card" id="overlayContent">
-        </div>
+    <div class="overlay-card" id="overlayContent"></div>
 </div>
 
 <script>
@@ -145,25 +144,64 @@
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwn6aXZMKuTBxnLkHl2Cy5wgHbKS4jOu8YLtxfFw2VsYT9IBs3VSaG710qzpKMOZ-Ti/exec'; 
 
     const skillSets = {
-        "Senior Technician": { skills: ["Micro-Soldering", "FaceID Repair", "CPU Reballing"], desc: "High-end logic board repairs and chip-level diagnostics.", vacancies: 3 },
-        "Junior Technician": { skills: ["Screen Change", "Battery", "Charging Port"], desc: "Hardware part replacement and general servicing.", vacancies: 4 },
-        "Laptop Technician": { skills: ["MacBook", "Chip Level Repair", "OS Installation"], desc: "Premium laptop hardware and software specialist.", vacancies: 2 },
-        "Service Coordinator": { skills: ["CRM Management", "Customer Care", "Inventory"], desc: "Handling workflow and client communications.", vacancies: 1 },
-        "Accountant": { skills: ["Tally", "GST Compliance", "Invoicing"], desc: "Branch level financial management.", vacancies: 1 },
-        "Telecaller": { skills: ["Malayalam", "English", "Sales Support"], desc: "Handling customer follow-ups and inquiries.", vacancies: 2 },
-        "Front Desk Executive": { skills: ["Admin", "Greeting", "Billing"], desc: "Showroom management and intake support.", vacancies: 2 }
+        "Senior Technician": { 
+            skills: ["Micro-Soldering", "FaceID Repair", "CPU Reballing"], 
+            desc: "Advanced logic board diagnostics and chip-level servicing.", 
+            vacancies: 3,
+            jd: "https://docs.google.com/document/d/1WcUXpGCIc-Xt3t6_-w_y-ezzh2_kgXgpsIYLgb4oLW8/preview" 
+        },
+        "Junior Technician": { 
+            skills: ["Screen Change", "Battery", "Charging Port"], 
+            desc: "Standard hardware part replacement and mobile servicing.", 
+            vacancies: 4,
+            jd: "https://docs.google.com/document/d/1BEEYEwFqEKGX_zKrpmqH9v8YBHNG2s7n1Y-7Q7SvRTY/preview"
+        },
+        "Laptop Technician": { 
+            skills: ["MacBook Repair", "Chip Level", "OS Installation"], 
+            desc: "Premium laptop hardware specialist and Apple MacBook repairs.", 
+            vacancies: 2,
+            jd: "https://docs.google.com/document/d/YOUR_DOC_ID/preview"
+        },
+        "Service Coordinator": { 
+            skills: ["CRM", "Client Care", "Inventory"], 
+            desc: "Service workflow management and front-end coordination.", 
+            vacancies: 1,
+            jd: "https://docs.google.com/document/d/1hi0crxf66C76Su6-t60p8efLt5bAGd6-NpzgVVWOcGY/preview"
+        },
+        "Accountant": { 
+            skills: ["Tally", "GST Compliance", "Invoicing"], 
+            desc: "Branch accounts and financial reporting.", 
+            vacancies: 1,
+            jd: "https://docs.google.com/document/d/1_asoV5LOJjZvLzb3JwpYo4muBAO8S12GF3gM9NwirYQ/preview"
+        },
+        "Telecaller": { 
+            skills: ["Malayalam", "English", "Customer Follow-up"], 
+            desc: "Handling outbound queries and service updates.", 
+            vacancies: 2,
+            jd: "https://docs.google.com/document/d/1BHnhpEy4LRF5K2OuMmwU62PVQJjDTekstdmV1U0JQvQ/preview"
+        },
+        "Front Desk Executive": { 
+            skills: ["Admin", "Greeting", "Billing"], 
+            desc: "Reception management and initial customer intake.", 
+            vacancies: 2,
+            jd: "https://docs.google.com/document/d/1dT5nYtcoar4xCetWlNGoNoOjwdAvnqNZX9K437tZ9Co/preview"
+        }
     };
 
     function updateFormDisplay() {
         const pos = document.getElementById('postApplied').value;
         const cont = document.getElementById('skills-container');
         const descB = document.getElementById('role-desc-container');
+        const jdBtn = document.getElementById('jd-link-btn');
+        
         cont.innerHTML = '';
         if (skillSets[pos]) {
             descB.style.display = 'block';
             document.getElementById('vacancy-count').innerText = skillSets[pos].vacancies + " Vacancies Left";
             document.getElementById('role-title-text').innerText = pos;
             document.getElementById('role-desc-text').innerText = skillSets[pos].desc;
+            jdBtn.href = skillSets[pos].jd;
+            
             skillSets[pos].skills.forEach(s => {
                 cont.innerHTML += `<label class="option-item"><input type="checkbox" name="skill" value="${s}"> ${s}</label>`;
             });
@@ -176,20 +214,18 @@
     document.getElementById('vibrantForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const skills = Array.from(document.querySelectorAll('input[name="skill"]:checked')).map(c => c.value).join(', ');
-        if (!skills) { alert("Please select your core skills."); return; }
+        if (!skills) { alert("Please select core skills."); return; }
         
         const btn = document.getElementById('submitBtn');
         const overlay = document.getElementById('successOverlay');
         const overlayContent = document.getElementById('overlayContent');
 
-        // Initial Loading State
         btn.disabled = true;
-        btn.innerText = "Processing...";
         overlay.style.display = 'flex';
         overlayContent.innerHTML = `
             <div class="spinner"></div>
-            <h2 style="color: #1e293b; margin-bottom:10px;">Uploading...</h2>
-            <p style="color: #64748b;">Please wait while we secure your application.</p>
+            <h2 style="color: #1e293b; margin-bottom:10px;">Uploading Resume...</h2>
+            <p style="color: #64748b;">Please wait while we process your application.</p>
         `;
 
         const file = document.getElementById('cvFile').files[0];
@@ -200,14 +236,8 @@
             const params = new URLSearchParams(new FormData(document.getElementById('vibrantForm')));
             params.set('specialization', skills);
 
-            fetch(`${SCRIPT_URL}?${params.toString()}`, { 
-                method: 'POST', 
-                mode: 'no-cors', 
-                body: JSON.stringify(fileData) 
-            })
+            fetch(`${SCRIPT_URL}?${params.toString()}`, { method: 'POST', mode: 'no-cors', body: JSON.stringify(fileData) })
             .then(() => {
-                // Success State
-                overlayContent.style.animation = "popIn 0.5s ease-out";
                 overlayContent.innerHTML = `
                     <div style="font-size: 60px; margin-bottom: 20px;">✨</div>
                     <h2 style="color: #1e293b; margin-bottom:10px;">Application Sent!</h2>
@@ -221,9 +251,8 @@
             })
             .catch(() => {
                 overlay.style.display = 'none';
-                alert("Submission failed. Check your internet connection.");
+                alert("Connection error. Please try again.");
                 btn.disabled = false;
-                btn.innerText = "Submit Application";
             });
         };
         reader.readAsArrayBuffer(file);
